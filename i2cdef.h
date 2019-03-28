@@ -1,5 +1,7 @@
 #define STAT_REG        (0x00)
 #define OUT_REG         (0x01)
+#define DATAX_LSB       (0x02)
+#define DATAX_MSB       (0x03)
 #define DATA0_LSB       (0x02)
 #define DATA0_MSB       (0x03)
 #define DATA1_LSB       (0x04)
@@ -33,4 +35,7 @@
 #define FTF1_2_REG      (0x28)
 #define FTF3_REG        (0x2B)
 
-
+#define CH1EN           (0x01)
+#define CH2EN           (0x02)
+#define CH3EN           (0x04)
+#define CH4EN           (0x08)

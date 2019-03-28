@@ -1,33 +1,36 @@
-#define EN_REG          (0x0C)
-#define STAT_REG        (0x00)
-#define OUT_REG         (0x01)
-
-
-
-
-
-#define I2C_DEV_LOC     (0x2a)
-
-
 #include <iostream>
 #include <errno.h>
 #include <wiringPiI2C.h>
+#include "i2cdef.h"
 
 using namespace std;
 
-
+int fd;
 
 
 int main(){
-    int fd, result;
+    int result;
     
     fd = wiringPiI2CSetup(I2C_DEV_LOC);
     cout << "Initial result: " << fd << endl;
-
-
-    return 0;
+    while(1){
+        cdcread(0);
+    }
+    result = 0;
+    return result;
 }
 
 void setup(){
+    wiringPiI2CWriteReg8(fd, EN_REG, 
+                    CH1EN);
+}
 
+uint16_t cdcread(uint8_t chread){
+    uint8_t lsb = 
+        wiringPiI2CReadReg8(fd, 
+        DATAX_LSB + (chread<<1));
+    uint8_t msb = 
+        wiringPiI2CReadReg16(fd,
+        DATAX_MSB + (chread<<1));
+    return (msb << 8) | (lsb);
 }
