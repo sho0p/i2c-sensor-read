@@ -19,7 +19,7 @@ uint16_t cdcread(uint8_t chread){
 }
 void setup(){
     cout <<"Waiting to write to enable..." << endl;
-    while(!WiringPiI2CReadReg8(fd, STAT_REG & 0x80)){
+    while(!wiringPiI2CReadReg8(fd, STAT_REG & 0x80)){
     }
     wiringPiI2CWriteReg8(fd, EN_REG, 
                     CH1EN);
