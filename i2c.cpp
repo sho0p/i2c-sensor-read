@@ -13,11 +13,14 @@ uint16_t cdcread(uint8_t chread){
         wiringPiI2CReadReg8(fd, 
         DATAX_LSB + (chread<<1));
     uint8_t msb = 
-        wiringPiI2CReadReg16(fd,
+        wiringPiI2CReadReg8(fd,
         DATAX_MSB + (chread<<1));
     return (msb << 8) | (lsb);
 }
 void setup(){
+    cout <<"Waiting to write to enable..." << endl;
+    while(!WiringPiI2CReadReg8(fd, STATUS & 0x80)){
+    }
     wiringPiI2CWriteReg8(fd, EN_REG, 
                     CH1EN);
 }
