@@ -17,22 +17,23 @@ uint16_t cdcread(uint8_t chread){
         DATAX_MSB + (chread<<1));
     return (msb << 8) | (lsb);
 }
-
+void setup(){
+    wiringPiI2CWriteReg8(fd, EN_REG, 
+                    CH1EN);
+}
 int main(){
     int result;
     
     fd = wiringPiI2CSetup(I2C_DEV_LOC);
     cout << "Initial result: " << fd << endl;
+    setup();
     while(1){
-        cdcread(0x0);
+        cout << "Read on channel 0: " << cdcread(0x0)<< endl;
     }
     result = 0;
     return result;
 }
 
-void setup(){
-    wiringPiI2CWriteReg8(fd, EN_REG, 
-                    CH1EN);
-}
+
 
 
