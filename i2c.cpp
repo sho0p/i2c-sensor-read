@@ -12,10 +12,10 @@ int fd;
 void cdcread(uint8_t chread){
     uint8_t lsb =
         wiringPiI2CReadReg8(fd, 
-        DATAX_LSB + (chread<<1));
+        DATA0_LSB );
     uint8_t msb = 
         wiringPiI2CReadReg8(fd,
-        DATAX_MSB + (chread<<1));
+        DATA0_MSB );
     cout << "Read on channel " << chread << ": " << ((msb << 8) | (lsb));
 }
 void setup(){
