@@ -1,4 +1,5 @@
 #define I2C_DEV_LOC     (0x2A)
+#define INTB_PIN        (18)
 
 #define STAT_REG        (0x00)
 #define OUT_REG         (0x01)
