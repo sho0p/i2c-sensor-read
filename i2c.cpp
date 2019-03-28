@@ -9,13 +9,13 @@ using namespace std;
 
 int fd;
 
-uint16_t cdcread(uint8_t chread){
+void cdcread(uint8_t chread){
         wiringPiI2CReadReg8(fd, 
         DATAX_LSB + (chread<<1));
     uint8_t msb = 
         wiringPiI2CReadReg8(fd,
         DATAX_MSB + (chread<<1));
-    return (msb << 8) | (lsb);
+    cout << "Read on channel " << chread << ": " << (msb << 8) | (lsb);
 }
 void setup(){
     cout <<"Waiting to write to enable..." << endl;
