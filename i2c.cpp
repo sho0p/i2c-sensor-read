@@ -28,7 +28,7 @@ int main(){
     int result;
     
     fd = wiringPiI2CSetup(I2C_DEV_LOC);
-    wiringPiISR(INTB_PIN, INT_EDGE_RISING, *cdcread);
+        wiringPiISR(INTB_PIN, INT_EDGE_RISING, &cdcread);
     cout << "Initial result: " << fd << endl;
     setup();
     while(1);
