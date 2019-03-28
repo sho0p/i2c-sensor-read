@@ -10,6 +10,7 @@ using namespace std;
 int fd;
 
 void cdcread(uint8_t chread){
+    uint8_t lsb =
         wiringPiI2CReadReg8(fd, 
         DATAX_LSB + (chread<<1));
     uint8_t msb = 
@@ -28,7 +29,7 @@ int main(){
     int result;
     
     fd = wiringPiI2CSetup(I2C_DEV_LOC);
-        wiringPiISR(INTB_PIN, INT_EDGE_RISING, &cdcread);
+        wiringPiISR(INTB_PIN, INT_EDGE_RISING, *cdcread);
     cout << "Initial result: " << fd << endl;
     setup();
     while(1);
