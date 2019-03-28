@@ -1,5 +1,6 @@
 #include <iostream>
 #include <errno.h>
+#include <stdint.h>
 #include <wiringPiI2C.h>
 #include "i2cdef.h"
 
