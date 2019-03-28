@@ -31,9 +31,7 @@ int main(){
     wiringPiISR(INTB_PIN, INT_EDGE_RISING, *cdcread);
     cout << "Initial result: " << fd << endl;
     setup();
-    while(1){
-        cout << "Read on channel 0: " << cdcread(0x0)<< endl;
-    }
+    while(1);
     result = 0;
     return result;
 }
