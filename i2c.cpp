@@ -30,7 +30,7 @@ void setup(){
     while( !(wiringPiI2CReadReg8(fd, STAT_REG)&& (1 << 5) ) )
     wiringPiI2CWriteReg8(fd, EN_REG, 
                     CH1EN);
-    wiritnPiI2cWriteReg8(fd, NP_SCAN_RATE, 0b11);
+    wiringPiI2CWriteReg8(fd, NP_SCAN_RATE, 0b11);
     cout << "Exiting Config Mode..." << endl;
     wiringPiI2CWriteReg8(fd, RESET_REG, CONFIG_MODE_OFF);
     cout << "Finished setup!" << endl;
@@ -41,12 +41,14 @@ int main(){
     
     fd = wiringPiI2CSetup(I2C_DEV_LOC);
     cout << "Issue with the interrupt?" <<endl;
-        wiringPiISR(INTB_PIN, INT_EDGE_RISING, *cdc0read);
+//        wiringPiISR(INTB_PIN, INT_EDGE_RISING, *cdc0read);
     cout << "Initial result: " << fd << endl;
     setup();
     cout << "Starting reads." << endl;
     while(1){
-	}
+	cdc0read();
+	usleep(100000);
+    }
     result = 0;
     return result;
 }
