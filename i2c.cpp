@@ -1,24 +1,28 @@
 #include <iostream>
 #include <errno.h>
 #include <stdint.h>
+#include <wiringPi.h>
 #include <wiringPiI2C.h>
 #include <wiringPi.h>
+#include <unistd.h>
 #include "i2cdef.h"
 
 using namespace std;
 
 int fd;
 
-void cdcread(){
+void cdc0read(){
+    usleep(500000);
     uint8_t lsb =
         wiringPiI2CReadReg8(fd, 
         DATA0_LSB );
     uint8_t msb = 
         wiringPiI2CReadReg8(fd,
         DATA0_MSB );
-    cout << "Read on channel 0: " << ((msb << 8) | (lsb));
+    cout << "Read on channel 0: " << ((msb << 8) | (lsb)) << endl;
 }
 void setup(){
+	pinMode(INTB_PIN, INPUT);
     cout <<"Waiting to write to enable..." << endl;
     while(!wiringPiI2CReadReg8(fd, STAT_REG & 0x20)){
     }
@@ -29,10 +33,13 @@ int main(){
     int result;
     
     fd = wiringPiI2CSetup(I2C_DEV_LOC);
-        wiringPiISR(INTB_PIN, INT_EDGE_RISING, *cdcread);
+    cout << "Issue with the interrupt?" <<endl;
+        wiringPiISR(INTB_PIN, INT_EDGE_FALLING, *cdc0read);
     cout << "Initial result: " << fd << endl;
     setup();
-    while(1);
+    while(1){
+	cdc0read();
+	}
     result = 0;
     return result;
 }
