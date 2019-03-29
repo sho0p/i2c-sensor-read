@@ -30,7 +30,7 @@ void setup(){
     while( !(wiringPiI2CReadReg8(fd, STAT_REG)&& (1 << 5) ) )
     wiringPiI2CWriteReg8(fd, EN_REG, 
                     CH1EN);
-    wiringPiI2CWriteReg8(fd, NP_SCAN_RATE, 0b11);
+    wiringPiI2CWriteReg8(fd, GAIN0_REG, 0xFF) //SENSITIVITY OUT THE WAZOO
     cout << "Exiting Config Mode..." << endl;
     wiringPiI2CWriteReg8(fd, RESET_REG, CONFIG_MODE_OFF);
     cout << "Finished setup!" << endl;
