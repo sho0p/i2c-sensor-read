@@ -23,7 +23,7 @@ void cdc0read(){
 void setup(){
 	pinMode(INTB_PIN, INPUT);
     cout <<"Waiting to write to enable..." << endl;
-    while(!, *cdc0read;){
+    while( !(wiringPiI2CReadReg8(fd, STAT_REG)&& (1 << 5) ) ){
     }
     wiringPiI2CWriteReg8(fd, EN_REG, 
                     CH1EN);
