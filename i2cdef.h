@@ -2,6 +2,7 @@
 #define INTB_PIN        (18)
 
 #define STAT_REG        (0x00)
+#define RDY_TO_WRITE    (1 << 5)
 #define OUT_REG         (0x01)
 #define DATAX_LSB       (0x02)
 #define DATAX_MSB       (0x03)
@@ -14,6 +15,8 @@
 #define DATA3_LSB       (0x08)
 #define DATA3_MSB       (0x09)
 #define RESET_REG       (0x0A)
+#define CONFIG_MODE_ON  (0x01)
+#define CONFIG_MODE_OFF (0x00)
 #define EN_REG          (0x0C)
 #define NP_SCAN_RATE    (0x0D)
 #define GAIN0_REG       (0x0E)

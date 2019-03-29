@@ -21,12 +21,19 @@ void cdc0read(){
     cout << "Read on channel 0: " << ((msb << 8) | (lsb)) << endl;
 }
 void setup(){
+    cout << "Starting setup..." << endl;
 	pinMode(INTB_PIN, INPUT);
+    cout << "Entering Config Mode..."<< endl;
+    wiringPiI2CWriteReg8(fd, RESET_REG, CONFIG_MODE_ON);
     cout <<"Waiting to write to enable..." << endl;
-    while( !(wiringPiI2CReadReg8(fd, STAT_REG)&& (1 << 5) ) ){
-    }
+    while( !(wiringPiI2CReadReg8(fd, STAT_REG)&& (1 << 5) ) )
+    
     wiringPiI2CWriteReg8(fd, EN_REG, 
                     CH1EN);
+    cout << "Exiting Config Mode..." << endl;
+    wiringPiI2CWriteReg8(fd, RESET_REG, CONFIG_MODE_OFF);
+    cout << "Finished setup!" << endl;
+
 }
 int main(){
     int result;
@@ -36,6 +43,7 @@ int main(){
         wiringPiISR(INTB_PIN, INT_EDGE_RISING, *cdc0read);
     cout << "Initial result: " << fd << endl;
     setup();
+    cout << "Starting reads." << endl;
     while(1){
 	}
     result = 0;
