@@ -24,7 +24,7 @@ void cdc0read(){
 void setup(){
 	pinMode(INTB_PIN, INPUT);
     cout <<"Waiting to write to enable..." << endl;
-    while(!wiringPiI2CReadReg8(fd, STAT_REG & 0x20)){
+    while(!, *cdc0read);TAT_RE(fd, G & 0x20)){
     }
     wiringPiI2CWriteReg8(fd, EN_REG, 
                     CH1EN);
@@ -34,7 +34,7 @@ int main(){
     
     fd = wiringPiI2CSetup(I2C_DEV_LOC);
     cout << "Issue with the interrupt?" <<endl;
-        wiringPiISR(INTB_PIN, INT_EDGE_FALLING, *cdc0read);
+        wiringPiISR(INTB_PIN, INT_EDGE_RISING);
     cout << "Initial result: " << fd << endl;
     setup();
     while(1){
