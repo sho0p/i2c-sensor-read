@@ -12,6 +12,7 @@ using namespace std;
 int fd;
 
 void cdc0read(){
+    wiringPiI2CReadReg8(fd, STAT_REG); //to lock the data
     uint8_t lsb =
         wiringPiI2CReadReg8(fd, 
         DATA0_LSB );
@@ -27,9 +28,9 @@ void setup(){
     wiringPiI2CWriteReg8(fd, RESET_REG, CONFIG_MODE_ON);
     cout <<"Waiting to write to enable..." << endl;
     while( !(wiringPiI2CReadReg8(fd, STAT_REG)&& (1 << 5) ) )
-    
     wiringPiI2CWriteReg8(fd, EN_REG, 
                     CH1EN);
+    wiritnPiI2cWriteReg8(fd, NP_SCAN_RATE, 0b11);
     cout << "Exiting Config Mode..." << endl;
     wiringPiI2CWriteReg8(fd, RESET_REG, CONFIG_MODE_OFF);
     cout << "Finished setup!" << endl;
