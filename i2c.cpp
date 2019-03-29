@@ -12,7 +12,6 @@ using namespace std;
 int fd;
 
 void cdc0read(){
-    usleep(500000);
     uint8_t lsb =
         wiringPiI2CReadReg8(fd, 
         DATA0_LSB );
@@ -34,11 +33,10 @@ int main(){
     
     fd = wiringPiI2CSetup(I2C_DEV_LOC);
     cout << "Issue with the interrupt?" <<endl;
-        wiringPiISR(INTB_PIN, INT_EDGE_RISING);
+        wiringPiISR(INTB_PIN, INT_EDGE_RISING, *cdc0read);
     cout << "Initial result: " << fd << endl;
     setup();
     while(1){
-	cdc0read();
 	}
     result = 0;
     return result;
